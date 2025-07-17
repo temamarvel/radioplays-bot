@@ -26,6 +26,7 @@ def handle_search(message):
         results = response.json()
 
         if not results:
+            #todo maybe we need to do some stuff here
             bot.send_message(message.chat.id, "Ничего не найдено.")
             return
 
