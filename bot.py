@@ -4,6 +4,7 @@ import telebot
 import requests
 
 from dotenv import load_dotenv
+from telebot.types import InputMediaPhoto
 
 load_dotenv()
 
@@ -32,16 +33,16 @@ def handle_search(message):
 
         for item in results:
             title = item.get("name", "Без названия")
-            # cover_url = item.get("cover_url")
+            cover_urls = item.get("cover_urls")
             # audio_url = item.get("audio_url")
 
-            bot.send_message(message.chat.id, title)
-
             # # Отправляем обложку
-            # if cover_url:
-            #     bot.send_photo(message.chat.id, photo=cover_url, caption=title)
-            # else:
-            #     bot.send_message(message.chat.id, title)
+            if cover_urls:
+                cover_images = list(map(lambda url:InputMediaPhoto(url, f"ph1", show_caption_above_media=True), cover_urls))
+                cover_images[0].caption = title
+                bot.send_media_group(message.chat.id, media=cover_images)
+            else:
+                bot.send_message(message.chat.id, title)
             #
             # # Отправляем аудио
             # if audio_url:
