@@ -38,7 +38,7 @@ def handle_search(message):
 
             # # Отправляем обложку
             if cover_urls:
-                cover_images = list(map(lambda url:InputMediaPhoto(url, f"ph1", show_caption_above_media=True), cover_urls))
+                cover_images = list(map(lambda url:InputMediaPhoto(url, show_caption_above_media=True), cover_urls))
                 cover_images[0].caption = title
                 bot.send_media_group(message.chat.id, media=cover_images)
             else:
