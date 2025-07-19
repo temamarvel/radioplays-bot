@@ -33,6 +33,7 @@ def handle_search(message):
 
         for item in results:
             title = item.get("name", "Без названия")
+            audio_urls = item.get("audio_urls")
             cover_urls = item.get("cover_urls")
 
             if cover_urls:
@@ -41,6 +42,13 @@ def handle_search(message):
                 bot.send_media_group(message.chat.id, media=cover_images)
             else:
                 bot.send_message(message.chat.id, title)
+
+            for audio_url in audio_urls:
+                bot.send_audio(
+                    chat_id=message.chat.id,
+                    audio=audio_url,
+                    title=title,
+                    caption="Приятного прослушивания!")
 
     except Exception as e:
         bot.send_message(message.chat.id, f"Ошибка при поиске: {e}")
