@@ -34,19 +34,13 @@ def handle_search(message):
         for item in results:
             title = item.get("name", "Без названия")
             cover_urls = item.get("cover_urls")
-            # audio_url = item.get("audio_url")
 
-            # # Отправляем обложку
             if cover_urls:
                 cover_images = list(map(lambda url:InputMediaPhoto(url, show_caption_above_media=True), cover_urls))
                 cover_images[0].caption = title
                 bot.send_media_group(message.chat.id, media=cover_images)
             else:
                 bot.send_message(message.chat.id, title)
-            #
-            # # Отправляем аудио
-            # if audio_url:
-            #     bot.send_audio(message.chat.id, audio=audio_url)
 
     except Exception as e:
         bot.send_message(message.chat.id, f"Ошибка при поиске: {e}")
