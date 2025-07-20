@@ -43,12 +43,13 @@ def handle_search(message):
             else:
                 bot.send_message(message.chat.id, title)
 
-            for audio_url in audio_urls:
-                bot.send_audio(
-                    chat_id=message.chat.id,
-                    audio=audio_url,
-                    title=title,
-                    caption="Приятного прослушивания!")
+            # todo doesn't work on localhost. implement and test it after deploy
+            # for audio_url in audio_urls:
+            #     bot.send_audio(
+            #         chat_id=message.chat.id,
+            #         audio=audio_url,
+            #         title=title,
+            #         caption="Приятного прослушивания!")
 
     except Exception as e:
         bot.send_message(message.chat.id, f"Ошибка при поиске: {e}")
